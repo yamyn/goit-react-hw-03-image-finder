@@ -1,96 +1,42 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
 
+import imagesApi from '../../services/apiService';
+import mapper from '../../services/mapper';
+
 import styles from './App.module.css';
 
-import Section from '../Section/Section';
-import Notification from '../Notification/Notification';
-import ContactsList from '../ContactsList/ContactsList';
-import Filter from '../Filter/Filter';
-import CreateContactForm from '../CreateContactForm/CreateContactForm';
-
-const filterContacts = (contacts, filter) => {
-    return contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
-};
+import ImageGallery from '../ImageGallery/ImageGallery';
+import Searchbar from '../Searchbar/Searchbar';
+import Loader from '../Loader/Loader';
+import Modal from '../Modal/Modal';
+import Button from '../Button/Button';
 
 export default class App extends Component {
     state = {
-        contacts: [],
-        filter: '',
+        images: [],
     };
 
     componentDidMount() {
-        const savedContacts = localStorage.getItem('contacts');
-
-        if (savedContacts) {
-            this.setState({ contacts: JSON.parse(savedContacts) });
-        }
+        this.fethImages();
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.contacts !== this.state.contacts) {
-            localStorage.setItem(
-                'contacts',
-                JSON.stringify(this.state.contacts),
-            );
-        }
-    }
+    fethImages = query => {
+        if (query) imagesApi.currentQuery = query;
 
-    changeFilter = e => {
-        this.setState({ filter: e.target.value });
-    };
-
-    addContact = contact => {
-        const isUniqueName = this.state.contacts.find(
-            savedContact =>
-                savedContact.name.toLowerCase() === contact.name.toLowerCase(),
-        );
-
-        if (isUniqueName)
-            return alert(`${contact.name} is already in contacts`);
-        const contactToAdd = {
-            ...contact,
-            id: shortid.generate(),
-        };
-        this.setState(state => ({
-            contacts: [...state.contacts, contactToAdd],
-        }));
-    };
-
-    deleteContact = id => {
-        this.setState(state => ({
-            contacts: state.contacts.filter(contact => contact.id !== id),
-        }));
+        imagesApi.fethImages().then(res => {
+            this.setState({ images: mapper(res) });
+        });
     };
 
     render() {
-        const { contacts, filter } = this.state;
-        const filteredContacts = filterContacts(contacts, filter);
+        const images = this.state.images;
+        const alt = imagesApi.currentQuery;
 
         return (
             <div className={styles.container}>
-                <h1>goit-react-hw-02-phonebook</h1>
-                <Section title="Phonebook">
-                    <CreateContactForm onAddContact={this.addContact} />
-                </Section>
-                <Section title="Contacts">
-                    {this.state.contacts.length > 2 && (
-                        <Filter
-                            value={filter}
-                            onChangeFilter={this.changeFilter}
-                        />
-                    )}
-                    {filteredContacts.length > 0 ? (
-                        <ContactsList
-                            contacts={filteredContacts}
-                            onDeleteContact={this.deleteContact}
-                        />
-                    ) : (
-                        <Notification message="Contacts for query not found" />
-                    )}
-                </Section>
+                <Searchbar onSubmit={this.fethImages} />
+                <ImageGallery images={images} alt={alt} />
             </div>
         );
     }

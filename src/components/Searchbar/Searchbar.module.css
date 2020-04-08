@@ -1,7 +1,4 @@
-/*
-   * Стили компонента Searchbar
-   */
-.Searchbar {
+.bar {
     top: 0;
     left: 0;
     position: sticky;
@@ -21,10 +18,7 @@
         0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-/*
-   * Стили компонента SearchForm
-   */
-.SearchForm {
+.form {
     display: flex;
     align-items: center;
     width: 100%;
@@ -34,11 +28,12 @@
     overflow: hidden;
 }
 
-.SearchForm-button {
+.button {
     display: inline-block;
     width: 48px;
     height: 48px;
     border: 0;
+    background-color: transparent;
     background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
     background-size: 40%;
     background-repeat: no-repeat;
@@ -49,11 +44,11 @@
     outline: none;
 }
 
-.SearchForm-button:hover {
+.button:hover {
     opacity: 1;
 }
 
-.SearchForm-button-label {
+.label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -65,7 +60,7 @@
     border: 0;
 }
 
-.SearchForm-input {
+.input {
     display: inline-block;
     width: 100%;
     font: inherit;
@@ -76,7 +71,7 @@
     padding-right: 4px;
 }
 
-.SearchForm-input::placeholder {
+.input::placeholder {
     font: inherit;
     font-size: 18px;
 }

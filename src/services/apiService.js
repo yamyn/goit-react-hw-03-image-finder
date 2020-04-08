@@ -3,7 +3,7 @@ const apiKey = '?key=14998986-82322fa46abf8765da09830ba';
 const countImage = '&per_page=12';
 export default {
     page: 1,
-    query: '',
+    query: 'Cat',
 
     fethImages() {
         const queryParam = `&q=${this.query}`;
