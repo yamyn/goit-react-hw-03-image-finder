@@ -36,8 +36,8 @@ export default class App extends Component {
         if (query && typeof query === 'string') {
             this.setState({ images: [] });
             imagesApi.currentQuery = query;
+            imagesApi.resetPage();
         }
-
         imagesApi
             .fethImages()
             .then(res => {
