@@ -14,7 +14,6 @@ import Notification from '../Notification/Notification';
 export default class App extends Component {
     state = {
         images: [],
-
         isLoading: false,
         isNotFound: false,
     };

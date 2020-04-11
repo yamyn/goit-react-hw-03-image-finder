@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { img } from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({ src, alt }) => (
-    <>
-        <img src={src} alt={alt} className={img} />
-    </>
+    <img src={src} alt={alt} className={img} />
 );
 
 ImageGalleryItem.propTypes = {
