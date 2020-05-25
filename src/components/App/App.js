@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { error } from '@pnotify/core';
+
 import imagesApi from '../../services/apiService';
 import mapper from '../../helpers/mapper';
 
@@ -38,10 +40,14 @@ export default class App extends Component {
         imagesApi
             .fethImages()
             .then(res => {
+                if (res.length === 0) {
+                    error('No result with your query!');
+                }
                 this.setState(state => ({
                     images: [...state.images, ...mapper(res)],
                 }));
             })
+            .catch(err => error(err))
             .finally(() => {
                 this.setState({ isLoading: false });
             });

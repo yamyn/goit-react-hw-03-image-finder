@@ -8,7 +8,7 @@ const ImageGalleryItem = ({ src, alt }) => (
 
 ImageGalleryItem.propTypes = {
     src: PropTypes.string.isRequired,
-    alt: PropTypes.string,
+    alt: PropTypes.string.isRequired,
 };
 
 export default ImageGalleryItem;

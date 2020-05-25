@@ -23,14 +23,13 @@ export default class ImageGallery extends Component {
     };
 
     openModalHandler = event => {
-        const img = event.currentTarget.dataset.img;
+        const { img } = event.currentTarget.dataset;
         this.setState({ modalImg: img, isModalOpen: true });
     };
 
     closeModalHandler = event => {
         if (!event || event.currentTarget === event.target)
             this.setState({ isModalOpen: false });
-        return;
     };
 
     render() {

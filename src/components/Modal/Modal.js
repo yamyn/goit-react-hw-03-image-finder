@@ -6,7 +6,7 @@ import { overlay, modal } from './Modal.module.css';
 export default class Modal extends Component {
     static propTypes = {
         src: PropTypes.string.isRequired,
-        alt: PropTypes.string,
+        alt: PropTypes.string.isRequired,
         onClick: PropTypes.func.isRequired,
     };
 
